@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 默认是true，如果它配成false，其余各个Mapper XML文件配成支持cache也没用 -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="aggressiveLazyLoading" value="false" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="confConst" type="com.tao.springboot.dao.po.ConfConst" />
+	</typeAliases>
+</configuration>

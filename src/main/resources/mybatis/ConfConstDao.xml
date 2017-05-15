@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tao.springboot.dao.db.ConfConstDao">
+
+	<select id="getById" resultType="confConst">
+		<![CDATA[ SELECT * FROM conf_const WHERE const_id=#{id} ]]>
+	</select>
+
+	<select id="getByKey" resultType="confConst">
+		<![CDATA[ SELECT * FROM conf_const WHERE const_key=#{thekey} and del_flag='0' ]]>
+	</select>
+
+	<update id="updateById">
+		UPDATE conf_const
+		<set>
+			<if test="thevalue!=null"> const_value=#{thevalue},</if>
+			<if test="thedesc!=null"> const_desc=#{thedesc},</if>
+		</set>
+		<where>const_id=#{id}</where>
+	</update>
+
+	<update id="updateByKey">
+		UPDATE conf_const
+		<set>
+			<if test="thevalue!=null"> const_value=#{thevalue},</if>
+			<if test="thedesc!=null"> const_desc=#{thedesc},</if>
+		</set>
+		<where>const_key=#{thekey}</where>
+	</update>
+
+	<select id="getConfConstList" resultType="confConst">
+		<![CDATA[ SELECT * FROM conf_const]]>
+	</select>
+	
+	<select id="getPage" resultType="confConst">
+		select *
+		from conf_const
+		<where>${sConditions}</where>
+		order by const_id desc
+		limit #{page_size} offset #{row_from}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*)
+		from conf_const
+		<where>${sConditions}</where>
+	</select>
+	
+	<insert id="add" parameterType="confConst">
+		<![CDATA[
+		insert into conf_const
+		(const_key,const_value,const_desc)
+		values
+		(#{const_key},#{const_value},#{const_desc})
+		]]>
+	</insert>
+	
+	<update id="update">
+		UPDATE conf_const
+		<set>${sContent}</set>
+		<where>${sConditions}</where>
+	</update>
+	
+	<update id="remove">
+		UPDATE conf_const
+		<set>
+			del_flag='1'
+		</set>
+		<where>const_id=#{id}</where>
+	</update>
+
+</mapper>
